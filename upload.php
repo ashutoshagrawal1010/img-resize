@@ -1,8 +1,6 @@
 <?php
-include_once('ImageLib/ImageResizer.class.php');
-include_once('ImageLib/ImageResizeFacade.class.php');
+require('vendor/autoload.php');
 
-use \ImageLib\ImageResizeFacade as Resizer;
 $allowed_extensions = array('jpeg', 'jpg', 'png');
 $path = 'uploads/original/'; // upload directory
 
@@ -20,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $path = $path . $name;
             // move uploaded file from temporary to uploads directory
             if (move_uploaded_file($_FILES['image']['tmp_name'], $path)) {
-                $resizer = new Resizer();
+                $resizer = new ImageLib\ImageResizeFacade();
                 $resizer->resizeAndSave($path, $name);
                 echo "Successfully processed";
             }

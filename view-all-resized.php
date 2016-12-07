@@ -12,15 +12,18 @@
       <div class="row">
         <?php 
         $configs = (include "configs/image.php");
-        $path = $configs["target_path"];
+        $path = rtrim($configs["target_path"], "//");
         if (file_exists($path)) {
           $dir = new DirectoryIterator($path);
           foreach ($dir as $fileinfo) {
-              if (!$fileinfo->isDot()) {
+            if (!$fileinfo->isDot()) {
         ?>
         <div class="col-sm-6">
           <div class="thumbnail">
             <img src="<?php echo $path."/".$fileinfo->getFilename(); ?>">
+            <div class="caption">
+              <p class="text-center"><?php echo $fileinfo->getFilename(); ?></p>
+            </div>
           </div>
         </div>
         <?php
